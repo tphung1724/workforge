@@ -1,0 +1,232 @@
+docs/
+    │
+    ├── README.md
+    ├── SUMMARY.md
+    ├── GLOSSARY.md
+    │
+    ├── ADR/
+    │   ├── README.md
+    │   ├── ADR-Template.md
+    │   ├── ADR-0001-Project-Selection.md
+    │   ├── ADR-0002-Architecture-Style.md
+    │   ├── ADR-0003-Domain-Driven-Design.md
+    │   ├── ADR-0004-Modular-Monolith.md
+    │   ├── ADR-0005-Clean-Architecture.md
+    │   ├── ADR-0006-CQRS.md
+    │   ├── ADR-0007-Event-Driven.md
+    │   ├── ADR-0008-Multi-Tenant-Strategy.md
+    │   ├── ADR-0009-Authentication-Strategy.md
+    │   ├── ADR-0010-Authorization-Strategy.md
+    │   ├── ADR-0011-JWT-Strategy.md
+    │   ├── ADR-0012-Refresh-Token-Strategy.md
+    │   ├── ADR-0013-Password-Hashing.md
+    │   ├── ADR-0014-Database-Selection.md
+    │   ├── ADR-0015-Cache-Strategy.md
+    │   ├── ADR-0016-Message-Broker-Selection.md
+    │   ├── ADR-0017-Object-Storage-Selection.md
+    │   ├── ADR-0018-Search-Engine-Selection.md
+    │   ├── ADR-0019-API-Design-Style.md
+    │   ├── ADR-0020-REST-Conventions.md
+    │   ├── ADR-0021-Validation-Strategy.md
+    │   ├── ADR-0022-Error-Handling.md
+    │   ├── ADR-0023-Exception-Handling.md
+    │   ├── ADR-0024-Logging-Strategy.md
+    │   ├── ADR-0025-Monitoring-Strategy.md
+    │   ├── ADR-0026-Distributed-Tracing.md
+    │   ├── ADR-0027-Rate-Limiting.md
+    │   ├── ADR-0028-Deployment-Strategy.md
+    │   ├── ADR-0029-Docker-Strategy.md
+    │   ├── ADR-0030-CI-CD-Strategy.md
+    │   ├── ADR-0031-Secret-Management.md
+    │   ├── ADR-0032-Backup-Strategy.md
+    │   ├── ADR-0033-Disaster-Recovery.md
+    │   ├── ADR-0034-Testing-Strategy.md
+    │   ├── ADR-0035-Versioning-Strategy.md
+    │   ├── ADR-0036-Folder-Structure.md
+    │   ├── ADR-0037-Coding-Standards.md
+    │   ├── ADR-0038-Git-Workflow.md
+    │   ├── ADR-0039-Branching-Strategy.md
+    │   └── ADR-0040-Release-Strategy.md
+    │
+    ├── project/
+    │   ├── README.md
+    │   ├── Business-Problem.md
+    │   ├── Vision.md
+    │   ├── Goals.md
+    │   ├── Scope.md
+    │   ├── Out-of-Scope.md
+    │   ├── Stakeholders.md
+    │   ├── User-Personas.md
+    │   ├── Assumptions.md
+    │   ├── Constraints.md
+    │   └── Success-Criteria.md
+    │
+    ├── architecture/
+    │   ├── README.md
+    │   │
+    │   ├── quality-attributes/
+    │   │   ├── README.md
+    │   │   ├── Functional-Requirements.md
+    │   │   ├── Non-Functional-Requirements.md
+    │   │   ├── Architecture-Drivers.md
+    │   │   ├── Performance.md
+    │   │   ├── Scalability.md
+    │   │   ├── Availability.md
+    │   │   ├── Reliability.md
+    │   │   ├── Security.md
+    │   │   ├── Maintainability.md
+    │   │   ├── Observability.md
+    │   │   ├── Disaster-Recovery.md
+    │   │   ├── Backup.md
+    │   │   ├── RTO-RPO.md
+    │   │   └── Quality-Attribute-Scenarios.md
+    │   │
+    │   ├── overview/
+    │   │   ├── README.md
+    │   │   ├── Executive-Summary.md
+    │   │   ├── Business-Goals.md
+    │   │   ├── System-Goals.md
+    │   │   ├── Actors.md
+    │   │   ├── External-Systems.md
+    │   │   ├── Scope.md
+    │   │   ├── Out-of-Scope.md
+    │   │   └── High-Level-Overview.md
+    │   │
+    │   ├── context/
+    │   │   ├── README.md
+    │   │   ├── Context-Diagram.md
+    │   │   ├── Actors.md
+    │   │   ├── External-Systems.md
+    │   │   ├── Relationships.md
+    │   │   ├── Trust-Boundaries.md
+    │   │   └── Data-Flow.md
+    │   │
+    │   ├── containers/
+    │   │   ├── README.md
+    │   │   ├── Frontend.md
+    │   │   ├── Backend.md
+    │   │   ├── Database.md
+    │   │   ├── Redis.md
+    │   │   ├── Message-Broker.md
+    │   │   ├── Object-Storage.md
+    │   │   ├── Search-Engine.md
+    │   │   ├── Monitoring.md
+    │   │   ├── Logging.md
+    │   │   ├── Communication.md
+    │   │   ├── Data-Flow.md
+    │   │   └── Container-Diagram.md
+    │   │
+    │   ├── components/
+    │   │   ├── README.md
+    │   │   ├── API-Layer.md
+    │   │   ├── Application-Layer.md
+    │   │   ├── Domain-Layer.md
+    │   │   ├── Infrastructure-Layer.md
+    │   │   ├── Shared-Kernel.md
+    │   │   ├── Dependency-Rules.md
+    │   │   └── Component-Diagram.md
+    │   │
+    │   ├── modules/
+    │   │   ├── README.md
+    │   │   ├── Module-Catalog.md
+    │   │   ├── Module-Dependency-Matrix.md
+    │   │   ├── Module-Diagram.md
+    │   │   ├── Shared-Kernel.md
+    │   │   ├── identity/
+    │   │   ├── organization/
+    │   │   ├── workspace/
+    │   │   ├── project/
+    │   │   ├── sprint/
+    │   │   ├── task/
+    │   │   ├── comment/
+    │   │   ├── attachment/
+    │   │   ├── notification/
+    │   │   ├── audit/
+    │   │   └── search/
+    │   │
+    │   ├── runtime/
+    │   │   ├── README.md
+    │   │   ├── Authentication-Flow.md
+    │   │   ├── Authorization-Flow.md
+    │   │   ├── Request-Flow.md
+    │   │   ├── Multi-Tenant-Flow.md
+    │   │   ├── Cache-Flow.md
+    │   │   ├── Event-Flow.md
+    │   │   ├── Background-Job-Flow.md
+    │   │   ├── Notification-Flow.md
+    │   │   ├── File-Upload-Flow.md
+    │   │   └── Error-Handling.md
+    │   │
+    │   ├── deployment/
+    │   │   ├── README.md
+    │   │   ├── Docker.md
+    │   │   ├── Docker-Compose.md
+    │   │   ├── Kubernetes.md
+    │   │   ├── Reverse-Proxy.md
+    │   │   ├── Network.md
+    │   │   ├── Volumes.md
+    │   │   ├── Secrets.md
+    │   │   ├── CI-CD.md
+    │   │   └── Deployment-Diagram.md
+    │   │
+    │   ├── observability/
+    │   │   ├── README.md
+    │   │   ├── Logging.md
+    │   │   ├── Metrics.md
+    │   │   ├── Tracing.md
+    │   │   ├── Dashboards.md
+    │   │   ├── Health-Checks.md
+    │   │   ├── Alerting.md
+    │   │   ├── SLI.md
+    │   │   ├── SLO.md
+    │   │   └── Monitoring-Diagram.md
+    │   │
+    │   └── security/
+    │       ├── README.md
+    │       ├── Authentication.md
+    │       ├── Authorization.md
+    │       ├── RBAC.md
+    │       ├── JWT.md
+    │       ├── Refresh-Token.md
+    │       ├── Multi-Tenant-Isolation.md
+    │       ├── Encryption.md
+    │       ├── Secret-Management.md
+    │       ├── Rate-Limiting.md
+    │       ├── Audit-Logging.md
+    │       ├── OWASP-Top-10.md
+    │       ├── Threat-Model.md
+    │       └── Security-Checklist.md
+    │
+    ├── design/
+    │   ├── README.md
+    │   ├── domain/
+    │   ├── database/
+    │   └── api/
+    │
+    ├── development/
+    │   ├── README.md
+    │   ├── Development-Roadmap.md
+    │   ├── Milestones.md
+    │   ├── Sprint-Planning.md
+    │   ├── Coding-Standards.md
+    │   ├── Testing-Strategy.md
+    │   ├── Release-Strategy.md
+    │   └── Definition-of-Done.md
+    │
+    └── references/
+        ├── README.md
+        ├── Glossary.md
+        ├── Patterns.md
+        ├── RFC.md
+        ├── OWASP.md
+        ├── C4-Model.md
+        ├── Domain-Driven-Design.md
+        ├── Clean-Architecture.md
+        ├── CQRS.md
+        ├── Event-Driven.md
+        ├── REST.md
+        ├── OpenAPI.md
+        ├── Docker.md
+        ├── Kubernetes.md
+        └── GitHub-Flow.md
+
