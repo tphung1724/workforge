@@ -1,3 +1,13 @@
 spring:
   application:
     name: backend
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+workforge:
+  application:
+    version: 0.1.0
