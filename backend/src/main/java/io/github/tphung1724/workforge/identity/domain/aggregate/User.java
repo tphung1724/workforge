@@ -54,14 +54,73 @@ public final class User {
         this.updatedAt = createdAt;
     }
 
-    public static User register(
+    private User(
+        final UserId id,
+        final Email email,
+        final Password password,
+        final String fullName,
+        final UserStatus status,
+        final RoleType role,
+        final boolean emailVerified,
+        final Instant emailVerifiedAt,
+        final Instant lastLoginAt,
+        final Instant passwordChangedAt,
+        final Instant createdAt,
+        final Instant updatedAt
+    ) {
+        this.id = Objects.requireNonNull(id, "id must not be null");
+        this.email = Objects.requireNonNull(email, "email must not be null");
+        this.password = Objects.requireNonNull(password, "password must not be null");
+        this.fullName = validateFullName(fullName);
+        this.status = Objects.requireNonNull(status, "status must not be null");
+        this.role = Objects.requireNonNull(role, "role must not be null");
+        this.emailVerified = emailVerified;
+        this.emailVerifiedAt = validateEmailVerifiedAt(emailVerified, emailVerifiedAt);
+        this.lastLoginAt = lastLoginAt;
+        this.passwordChangedAt = passwordChangedAt;
+        this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
+        this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
+    }
+
+    public static User create(
         final UserId id,
         final Email email,
         final Password password,
         final String fullName,
         final RoleType role,
-        final Instant now ) {
+        final Instant now
+    ) {
         return new User(id, email, password, fullName, role, now);
+    }
+
+    public static User reconstitute(
+        final UserId id,
+        final Email email,
+        final Password password,
+        final String fullName,
+        final UserStatus status,
+        final RoleType role,
+        final boolean emailVerified,
+        final Instant emailVerifiedAt,
+        final Instant lastLoginAt,
+        final Instant passwordChangedAt,
+        final Instant createdAt,
+        final Instant updatedAt
+    ) {
+        return new User(
+            id,
+            email,
+            password,
+            fullName,
+            status,
+            role,
+            emailVerified,
+            emailVerifiedAt,
+            lastLoginAt,
+            passwordChangedAt,
+            createdAt,
+            updatedAt
+        );
     }
 
     public UserId getId() {
@@ -70,6 +129,10 @@ public final class User {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Password getPassword() {
+        return password;
     }
 
     public String getFullName() {
@@ -117,7 +180,10 @@ public final class User {
         }
 
         this.emailVerified = true;
-        this.emailVerifiedAt = Objects.requireNonNull(verifiedAt, "verifiedAt must not be null");
+        this.emailVerifiedAt = Objects.requireNonNull(
+            verifiedAt,
+            "verifiedAt must not be null"
+        );
 
         if (this.status == UserStatus.PENDING_VERIFICATION) {
             this.status = UserStatus.ACTIVE;
@@ -168,6 +234,7 @@ public final class User {
 
     public void unlock(final Instant now) {
         requireNotDeleted();
+
         if (this.status != UserStatus.LOCKED) {
             throw new IllegalStateException("User is not locked");
         }
@@ -194,7 +261,10 @@ public final class User {
     public void login(final Instant now) {
         requireActive();
 
-        this.lastLoginAt = Objects.requireNonNull(now, "now must not be null");
+        this.lastLoginAt = Objects.requireNonNull(
+            now,
+            "now must not be null"
+        );
 
         touch(now);
     }
@@ -202,43 +272,71 @@ public final class User {
     public void changePassword(
         final Password currentPassword,
         final Password newPassword,
-        final Instant now ) {
+        final Instant now
+    ) {
         requireActive();
 
-        Objects.requireNonNull(currentPassword, "currentPassword must not be null");
-        Objects.requireNonNull(newPassword, "newPassword must not be null");
+        Objects.requireNonNull(
+            currentPassword,
+            "currentPassword must not be null"
+        );
+
+        Objects.requireNonNull(
+            newPassword,
+            "newPassword must not be null"
+        );
 
         if (!this.password.equals(currentPassword)) {
             throw new IllegalArgumentException("Current password is incorrect");
         }
 
         if (this.password.equals(newPassword)) {
-            throw new IllegalArgumentException("New password must be different from current password");
+            throw new IllegalArgumentException(
+                "New password must be different from current password"
+            );
         }
 
         this.password = newPassword;
-        this.passwordChangedAt = Objects.requireNonNull(now, "now must not be null");
+        this.passwordChangedAt = Objects.requireNonNull(
+            now,
+            "now must not be null"
+        );
 
         touch(now);
     }
 
-    public void resetPassword(final Password newPassword, final Instant now) {
+    public void resetPassword(
+        final Password newPassword,
+        final Instant now
+    ) {
         requireNotDeleted();
 
-        Objects.requireNonNull(newPassword, "newPassword must not be null");
+        Objects.requireNonNull(
+            newPassword,
+            "newPassword must not be null"
+        );
 
         if (this.password.equals(newPassword)) {
-            throw new IllegalArgumentException("New password must be different from current password");
+            throw new IllegalArgumentException(
+                "New password must be different from current password"
+            );
         }
 
         this.password = newPassword;
-        this.passwordChangedAt = Objects.requireNonNull(now, "now must not be null");
+        this.passwordChangedAt = Objects.requireNonNull(
+            now,
+            "now must not be null"
+        );
 
         touch(now);
     }
 
-    public void updateProfile(final String newFullName, final Instant now) {
+    public void updateProfile(
+        final String newFullName,
+        final Instant now
+    ) {
         requireActive();
+
         final String normalizedName = validateFullName(newFullName);
 
         if (this.fullName.equals(normalizedName)) {
@@ -250,10 +348,16 @@ public final class User {
         touch(now);
     }
 
-    public void changeEmail(final Email newEmail, final Instant now) {
+    public void changeEmail(
+        final Email newEmail,
+        final Instant now
+    ) {
         requireNotDeleted();
 
-        Objects.requireNonNull(newEmail, "newEmail must not be null");
+        Objects.requireNonNull(
+            newEmail,
+            "newEmail must not be null"
+        );
 
         if (this.email.equals(newEmail)) {
             throw new IllegalArgumentException("Email is unchanged");
@@ -300,26 +404,56 @@ public final class User {
     }
 
     private static String validateFullName(final String fullName) {
-        Objects.requireNonNull(fullName, "fullName must not be null");
+        Objects.requireNonNull(
+            fullName,
+            "fullName must not be null"
+        );
 
         final String value = fullName.trim();
 
         if (value.isEmpty()) {
-            throw new IllegalArgumentException("Full name must not be blank");
+            throw new IllegalArgumentException(
+                "Full name must not be blank"
+            );
         }
 
         if (value.length() > 200) {
-            throw new IllegalArgumentException("Full name must not exceed 200 characters");
+            throw new IllegalArgumentException(
+                "Full name must not exceed 200 characters"
+            );
         }
 
         return value;
     }
 
-    private void touch(final Instant now) {
-        this.updatedAt = Objects.requireNonNull(now, "now must not be null");
+    private static Instant validateEmailVerifiedAt(
+        final boolean emailVerified,
+        final Instant emailVerifiedAt
+    ) {
+        if (emailVerified && emailVerifiedAt == null) {
+            throw new IllegalArgumentException(
+                "emailVerifiedAt must not be null when email is verified"
+            );
+        }
+
+        if (!emailVerified && emailVerifiedAt != null) {
+            throw new IllegalArgumentException(
+                "emailVerifiedAt must be null when email is not verified"
+            );
+        }
+
+        return emailVerifiedAt;
     }
 
-    @Override public boolean equals(final Object o) {
+    private void touch(final Instant now) {
+        this.updatedAt = Objects.requireNonNull(
+            now,
+            "now must not be null"
+        );
+    }
+
+    @Override
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -331,7 +465,9 @@ public final class User {
         return id.equals(other.id);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return id.hashCode();
     }
 }
+
