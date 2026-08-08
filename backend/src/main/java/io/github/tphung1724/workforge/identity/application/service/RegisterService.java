@@ -43,7 +43,7 @@ public final class RegisterService implements RegisterUseCase {
         final String hashedPassword = passwordEncoder.encode(command.plainPassword());
         final Password password = Password.of(hashedPassword);
 
-        final User user = User.register(
+        final User user = User.create(
             UserId.generate(),
             email,
             password,
